@@ -33,6 +33,17 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+    {
+        http
+                .csrf((csrf) -> csrf.disable());
+
+        return http.build();
+
+    }
+
     //private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     /*
@@ -73,13 +84,6 @@ public class SecurityConfig {
         return http.build();
     }
     */
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-    {
-        http
-                .csrf((csrf) -> csrf.disable());
 
-        return http.build();
 
-    }
 }

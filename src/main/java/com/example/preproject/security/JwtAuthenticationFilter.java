@@ -50,7 +50,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
         String token = jwtUtil.createToken(username, nickname, role);
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+        jwtUtil.addJwtToCookie(token, response);
+
+//        jwtUtil.addJwtToHeader(JwtUtil.AUTHORIZATION_HEADER, token, response);
+//        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
 
         // JSON으로 변환하여 응답
         ObjectMapper objectMapper = new ObjectMapper();

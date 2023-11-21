@@ -13,18 +13,22 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Getter
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Getter
     @Column(nullable = false)
     private String nickname;
 
+    @Getter
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
@@ -38,21 +42,6 @@ public class UserEntity {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public UserRoleEnum getRole() {
-        return role;
-    }
 }
 
 
