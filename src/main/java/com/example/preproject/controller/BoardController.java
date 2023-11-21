@@ -19,9 +19,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BoardController {
 
     private final BoardService boardService;
+
     @GetMapping("")
     public List<BoardResponseDto> getBoards()
     {
@@ -45,10 +47,11 @@ public class BoardController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Object> deleteBoard(@PathVariable Long postId)
+    public ResponseEntity<Object> deleteBoard(@PathVariable Long postId,
+                                              @AuthenticationPrincipal UserDetailsImpl userDetails)
     {
         try{
-            boardService.deleteBoard(postId);
+            boardService.deleteBoard(postId, userDetails.getUser());
         } catch (Exception e)
         {
             return new ResponseEntity<>("게시글을 삭제하는 데 실패하였습니다.", HttpStatus.BAD_REQUEST);
@@ -56,20 +59,9 @@ public class BoardController {
         return new ResponseEntity<>("게시글이 삭제되었습니다.", HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Object> writeBoard(@RequestBody BoardRequestDto requestDto)
-    {
-        try {
-            boardService.writeBoard(requestDto);
-        } catch (Exception e)
-        {
-            return new ResponseEntity<>("게시글을 작성하는 데 실패하였습니다", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("게시글이 작성되었습니다.",HttpStatus.OK);
+    @PostMapping("/new")
+    public ResponseEntity<?> writeBoard(@RequestBody BoardRequestDto requestDto){
+        boardService.writeNewBoard(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-    /*
-    likeBoard
-
-     */
 }

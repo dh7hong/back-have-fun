@@ -33,20 +33,9 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-    {
-        http
-                .csrf((csrf) -> csrf.disable());
-
-        return http.build();
-
-    }
-
     //private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    /*
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -56,6 +45,7 @@ public class SecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        filter.setFilterProcessesUrl("/api/user/login");
         return filter;
     }
 
@@ -77,13 +67,18 @@ public class SecurityConfig {
                 .anyRequest().authenticated());
 
 
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class)
-                .addFilterBefore(loggingFilter(), JwtAuthorizationFilter.class);
+        http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-    */
-
-
+//    @Bean
+//    public SecurityFilterChain otherSecurityFilterChain(HttpSecurity http) throws Exception
+//    {
+//        http
+//                .csrf((csrf) -> csrf.disable());
+//
+//        return http.build();
+//
+//    }
 }
