@@ -18,7 +18,7 @@ public class CorsConfig {
         config.addAllowedOrigin("*"); // 모든 오리진 허용 (필요에 따라 수정)
         config.addAllowedMethod("*"); // 모든 HTTP 메서드 허용
         config.addAllowedHeader("*"); // 모든 헤더 허용
-        config.setAllowCredentials(true); // Credential 사용 허용 여부
+//        config.setAllowCredentials(true); // Credential 사용 허용 여부
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);

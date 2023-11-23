@@ -44,7 +44,6 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
-    //private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 
     @Bean
@@ -77,9 +76,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                        .requestMatchers(new AntPathRequestMatcher("/")).permitAll() // 메인 페이지 요청 허가
-                        .requestMatchers(new AntPathRequestMatcher("/api/users/**")).permitAll() // '/api/users/'로 시작하는 요청 모두 접근 허가
-                        .requestMatchers(new AntPathRequestMatcher("GET")).permitAll() // GET 요청 허가
+                        .requestMatchers(new AntPathRequestMatcher("/**", "GET")).permitAll() // 모든 GET 요청 허용
+                        .requestMatchers(new AntPathRequestMatcher("/dw**", "POST")).permitAll() // 모든 POST 요청 허용
+                        .requestMatchers(new AntPathRequestMatcher("/**", "PUT")).permitAll() // 모든 PUT 요청 허용
+                        .requestMatchers(new AntPathRequestMatcher("/**", "DELETE")).permitAll() // 모든 DELETE 요청 허용
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
