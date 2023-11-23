@@ -60,6 +60,7 @@ public class Board extends Timestamped implements Serializable {
     {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
+        this.user = user;
     }
 
     public String getTitle() {

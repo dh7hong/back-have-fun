@@ -1,8 +1,13 @@
 package com.example.preproject.global.dto;
 
+import com.example.preproject.dto.LoginRequestDto;
+import com.example.preproject.dto.LoginResponseDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,9 +30,13 @@ public class ApiResponse<T> {
         return new ApiResponse<>(SUCCESS_STATUS, null, data);
     }
 
-    public static <T> ApiResponse<T> successMessage(String message) {
-        return new ApiResponse<>(SUCCESS_STATUS, message, null);
+    public static <T> ApiResponse<T> successMessage(String message, T data) {
+        return new ApiResponse<>(SUCCESS_STATUS, message, data);
     }
+
+    // 로그인 성공시 사용
+//LoginResponseDto successData = new LoginResponseDto(getSuccessData().getUsername(), getSuccessData().getToken());
+    //ApiResponse<LoginResponseDto> response = ApiResponse.successData(successData);
 
     //에러
     public static <T> ApiResponse<T> error(String message) {

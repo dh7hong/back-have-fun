@@ -74,13 +74,13 @@ public class BoardService {
     }
 
     @Transactional
-    public void writeNewBoard(BoardRequestDto requestDto)
+    public void writeNewBoard(BoardRequestDto requestDto, UserEntity user)
     {
-        Board board = new Board(requestDto);
+        Board board = new Board(requestDto,user);
         boardRepository.save(board);
-        /*
-        user = userRepository.findById(user.getId()).orElseThrow(
-                () -> new NullPointerException("해당 유저가 존재하지 않습니다.")
-        );*/
+    /*
+    user = userRepository.findById(user.getId()).orElseThrow(
+            () -> new NullPointerException("해당 유저가 존재하지 않습니다.")
+    );*/
     }
 }

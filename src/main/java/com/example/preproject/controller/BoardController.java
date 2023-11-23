@@ -59,9 +59,9 @@ public class BoardController {
         return new ResponseEntity<>("게시글이 삭제되었습니다.", HttpStatus.OK);
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<?> writeBoard(@RequestBody BoardRequestDto requestDto){
-        boardService.writeNewBoard(requestDto);
+    @PostMapping("")
+    public ResponseEntity<?> writeBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        boardService.writeNewBoard(requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
