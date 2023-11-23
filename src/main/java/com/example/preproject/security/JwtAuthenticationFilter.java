@@ -5,6 +5,7 @@ import com.example.preproject.entity.UserRoleEnum;
 import com.example.preproject.global.dto.ApiResponse;
 import com.example.preproject.jwt.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Api;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,12 +58,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // JSON으로 변환하여 응답
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다."));
+        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
+        //String jsonData = objectMapper.writeValueAsString(ApiResponse.successData(nickname));
 
         response.setContentType("application/json");//응답 형식 지정
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
-
     }
 
     @Override
